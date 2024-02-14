@@ -10,11 +10,12 @@ public class PlanetSpawner : MonoBehaviour
     public GameObject fastRotatePlanet;
     private float spawnRate = 10;
     private float timer = 0;
+    private int num = 1;
     
     void Start()
     {
         Vector3 pos = transform.position - new Vector3(3.5f, 1, 0);
-        spawnPlanet(pos, Random.Range(0, 4));
+        spawnPlanet(pos, 2);
         pos = transform.position - new Vector3(1, -0.5f, 0);
         spawnPlanet(pos, Random.Range(0, 4));
     }
@@ -36,21 +37,27 @@ public class PlanetSpawner : MonoBehaviour
 
     void spawnPlanet(Vector3 position, int variant)
     {
+        GameObject newPlanet = null;
         switch(variant)
         {
             case 0:
-                Instantiate(planet, position, transform.rotation);
+                newPlanet = Instantiate(planet, position, transform.rotation);
+                newPlanet.name = "regular" + num.ToString();
                 break;
             case 1:
-                Instantiate(fastPlanet, position, transform.rotation);
+                newPlanet = Instantiate(fastPlanet, position, transform.rotation);
+                newPlanet.name = "fast" + num.ToString();
                 break;
             case 2:
-                Instantiate(rotatePlanet, position, transform.rotation);
+                newPlanet = Instantiate(rotatePlanet, position, transform.rotation);
+                newPlanet.name = "rotate" + num.ToString();
                 break;
             case 3:
-                Instantiate(fastRotatePlanet, position, transform.rotation);
+                newPlanet = Instantiate(fastRotatePlanet, position, transform.rotation);
+                newPlanet.name = "fastRotate" + num.ToString();
                 break;
         }
+        num++;
         spawnRate = Random.Range(4, 12);
     }
 }
