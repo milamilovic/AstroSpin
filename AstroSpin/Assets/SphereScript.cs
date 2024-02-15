@@ -14,8 +14,21 @@ public class SphereScript : MonoBehaviour
         script = astronaut.GetComponent<AstronautMove>();
         if(collision.gameObject.name == "Astronaut")
         {
+            Debug.Log("planet changed: " + gameObject.transform.parent.gameObject.name);
             astronaut.GetComponent<AstronautMove>().currentPlanet = gameObject.transform.parent.gameObject.name;
-            astronaut.GetComponent<AstronautMove>().collisionPosition = gameObject.transform.parent.gameObject.transform.position;
+            astronaut.GetComponent<AstronautMove>().planetStartingPosition = gameObject.transform.parent.gameObject.transform.position;
+            astronaut.GetComponent<AstronautMove>().astronautStartingPosition = collision.gameObject.transform.position;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Astronaut")
+        {
+            Debug.Log("exited planet sphere");
+            astronaut.GetComponent<AstronautMove>().currentPlanet = "";
+            astronaut.GetComponent<AstronautMove>().planetStartingPosition = Vector3.zero;
+            astronaut.GetComponent<AstronautMove>().astronautStartingPosition = Vector3.zero;
         }
     }
 }
