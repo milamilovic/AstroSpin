@@ -248,7 +248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlanet: 
-  collisionPosition: {x: 0, y: 0, z: 0}
+  astronautStartingPosition: {x: 0, y: 0, z: 0}
+  planetStartingPosition: {x: 0, y: 0, z: 0}
 --- !u!50 &645902684
 Rigidbody2D:
   serializedVersion: 4
@@ -381,8 +382,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 645902682}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 1.5, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.70996207, y: 1.5, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

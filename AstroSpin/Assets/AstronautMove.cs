@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Xml.Linq;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -15,20 +17,31 @@ public class AstronautMove : MonoBehaviour
         
     }
 
+    public void setParent(GameObject parent)
+    {
+        if (parent != null)
+        {
+            gameObject.transform.SetParent(parent.transform);
+        }
+        else
+        {
+            gameObject.transform.SetParent(null);
+        }
+    }
+
     void Update()
     {
         if(currentPlanet != "")
         {
-            GameObject planet = GameObject.Find(currentPlanet);
+            /*GameObject planet = GameObject.Find(currentPlanet);
             PlanetMoveScript script = planet.GetComponent<PlanetMoveScript>();
             float rotationSpeed = script.getRotateSpeed();
-            Vector3 planetRotationDirection = script.getForward();
-            //transform.position = planet.transform.TransformPoint(0.2f, 0, 0);
-            transform.position = astronautStartingPosition - (planet.transform.position - planetStartingPosition);
+            Vector3 planetRotationDirection = script.getForward();*/
+
+            GameObject planet = GameObject.Find(currentPlanet);
+            transform.position = astronautStartingPosition + (planet.transform.position - planetStartingPosition);
             planetStartingPosition = planet.transform.position;
             astronautStartingPosition = transform.position;
-            transform.Rotate(planetRotationDirection, rotationSpeed * Time.deltaTime);
-            //transform.position = planet.transform.position + (Vector3.left * rotationSpeed) * Time.deltaTime;
         }
     }
 
