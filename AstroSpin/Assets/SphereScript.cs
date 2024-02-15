@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class SphereScript : MonoBehaviour
@@ -28,8 +29,8 @@ public class SphereScript : MonoBehaviour
         {
             Debug.Log("exited planet sphere");
             astronaut.GetComponent<AstronautMove>().currentPlanet = "";
-            astronaut.GetComponent<AstronautMove>().astronautStartingPosition = Vector3.zero;
-            //astronaut.GetComponent<Rigidbody2D>().gravityScale = 0.1f;
+            astronaut.GetComponent<AstronautMove>().astronautStartingPosition = UnityEngine.Vector3.zero;
+            astronaut.GetComponent<Rigidbody2D>().gravityScale = 0.1f;
             astronaut.GetComponent<AstronautMove>().setParent(null);
         }
     }

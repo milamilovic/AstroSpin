@@ -45,6 +45,10 @@ public class AstronautMove : MonoBehaviour
 
     void Update()
     {
+        if(isOutOfBounds())
+        {
+            GameObject.Find("LogicManager").gameObject.GetComponent<LogicScript>().gameOver();
+        }
         if(currentPlanet != "")
         {
             /*GameObject planet = GameObject.Find(currentPlanet);
@@ -53,12 +57,28 @@ public class AstronautMove : MonoBehaviour
             Vector3 planetRotationDirection = script.getForward();*/
 
             GameObject planet = GameObject.Find(currentPlanet);
-            GameObject reference = planet.transform.GetChild(3).gameObject;
+            GameObject reference = null;
+            try
+            {
+                reference = planet.transform.GetChild(3).gameObject;
+            }
+            catch (Exception e)
+            {
+                reference = planet.transform.GetChild(2).gameObject;
+            }
+            Debug.Log("reference: " + reference.name);
             transform.position = astronautStartingPosition + (referenceStartingPosition - reference.transform.position);
             referenceStartingPosition = reference.transform.position;
             astronautStartingPosition = transform.position;
         }
     }
 
-
+    private bool isOutOfBounds()
+    {
+        if (gameObject.transform.position.x < -3f) return true;
+        if (gameObject.transform.position.x > 3f) return true;
+        if (gameObject.transform.position.y > 2f) return true;
+        if (gameObject.transform.position.y < -2f) return true;
+        return false;
+    }
 }
