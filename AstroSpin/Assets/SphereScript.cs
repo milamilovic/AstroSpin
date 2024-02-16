@@ -7,12 +7,10 @@ using UnityEngine;
 public class SphereScript : MonoBehaviour
 {
     public GameObject astronaut;
-    private AstronautMove script;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         astronaut = collision.gameObject;
-        script = astronaut.GetComponent<AstronautMove>();
         if(collision.gameObject.name == "Astronaut")
         {
             Debug.Log("planet changed: " + gameObject.transform.parent.gameObject.name);

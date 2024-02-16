@@ -48,6 +48,7 @@ public class AstronautMove : MonoBehaviour
         if(isOutOfBounds())
         {
             GameObject.Find("LogicManager").gameObject.GetComponent<LogicScript>().gameOver();
+            Destroy(gameObject);
         }
         if(currentPlanet != "")
         {
