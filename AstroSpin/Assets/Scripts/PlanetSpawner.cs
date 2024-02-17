@@ -58,6 +58,6 @@ public class PlanetSpawner : MonoBehaviour
                 break;
         }
         num++;
-        spawnRate = Random.Range(4, 12);
+        spawnRate = Random.Range(5, 12);
     }
 }
