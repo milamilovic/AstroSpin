@@ -19,7 +19,7 @@ public class AstronautMove : MonoBehaviour
         
     }
 
-    public void setParent(GameObject parent)
+    public void setParent(GameObject parent, UnityEngine.Vector3 collisionPosition)
     {
         //setting that astronaut is child of planet
         if (parent != null)
@@ -57,7 +57,7 @@ public class AstronautMove : MonoBehaviour
             float rotationSpeed = script.getRotateSpeed();
             Vector3 planetRotationDirection = script.getForward();*/
 
-            GameObject planet = GameObject.Find(currentPlanet);
+            /*GameObject planet = GameObject.Find(currentPlanet);
             GameObject reference = null;
             try
             {
@@ -70,7 +70,7 @@ public class AstronautMove : MonoBehaviour
             Debug.Log("reference: " + reference.name);
             transform.position = astronautStartingPosition + (referenceStartingPosition - reference.transform.position);
             referenceStartingPosition = reference.transform.position;
-            astronautStartingPosition = transform.position;
+            astronautStartingPosition = transform.position;*/
         }
     }
 

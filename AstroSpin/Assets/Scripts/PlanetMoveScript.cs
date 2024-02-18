@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlanetMoveScript : MonoBehaviour
 {
-    public float moveSpeed = 0.2f;
     public float rotateSpeed = 15;
     public int forward = 0;
-    private float outOfScreenXCoordinate = -3.5f;
+    private Camera camera;
+
 
     public float getRotateSpeed()
     {
@@ -21,14 +21,11 @@ public class PlanetMoveScript : MonoBehaviour
 
     void Start()
     {
-        
+        camera = Camera.main;
     }
 
     void Update()
     {
-        //move to the left
-        transform.position = transform.position + (Vector3.left * moveSpeed) * Time.deltaTime;
-
         //rotate
         if (forward == 0)
         {
@@ -40,7 +37,7 @@ public class PlanetMoveScript : MonoBehaviour
         }
 
         //destroy if out of screen
-        if(transform.position.x < outOfScreenXCoordinate)
+        if(camera.transform.position.x - transform.position.x > 3.5)
         {
             Destroy(gameObject);
         }

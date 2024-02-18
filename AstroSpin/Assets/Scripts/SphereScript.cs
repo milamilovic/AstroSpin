@@ -10,6 +10,7 @@ public class SphereScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Collision!!!!!!");
         astronaut = collision.gameObject;
         if(collision.gameObject.name == "Astronaut")
         {
@@ -17,7 +18,7 @@ public class SphereScript : MonoBehaviour
             astronaut.GetComponent<AstronautMove>().currentPlanet = gameObject.transform.parent.gameObject.name;
             astronaut.GetComponent<AstronautMove>().astronautStartingPosition = collision.gameObject.transform.position;
             astronaut.GetComponent<Rigidbody2D>().gravityScale = 0;
-            astronaut.GetComponent<AstronautMove>().setParent(gameObject.transform.parent.gameObject);
+            astronaut.GetComponent<AstronautMove>().setParent(gameObject, collision.ClosestPoint(gameObject.transform.position));
         }
     }
 
@@ -29,7 +30,7 @@ public class SphereScript : MonoBehaviour
             astronaut.GetComponent<AstronautMove>().currentPlanet = "";
             astronaut.GetComponent<AstronautMove>().astronautStartingPosition = UnityEngine.Vector3.zero;
             astronaut.GetComponent<Rigidbody2D>().gravityScale = 0.1f;
-            astronaut.GetComponent<AstronautMove>().setParent(null);
+            astronaut.GetComponent<AstronautMove>().setParent(null, UnityEngine.Vector2.zero);
         }
     }
 }
