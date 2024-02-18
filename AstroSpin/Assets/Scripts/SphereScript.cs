@@ -17,10 +17,9 @@ public class SphereScript : MonoBehaviour
             Debug.Log("planet changed: " + gameObject.transform.parent.gameObject.name);
             astronaut.GetComponent<AstronautMove>().currentPlanet = gameObject.transform.parent.gameObject.name;
             astronaut.GetComponent<AstronautMove>().astronautStartingPosition = collision.gameObject.transform.position;
-            //astronaut.GetComponent<Rigidbody2D>().gravityScale = 0;
-            //astronaut.GetComponent<Rigidbody2D>().mass = 0;
             Destroy(astronaut.GetComponent<Rigidbody2D>());
             astronaut.GetComponent<AstronautMove>().setParent(gameObject, collision.ClosestPoint(gameObject.transform.position));
+            astronaut.GetComponent<AstronautMove>().alignWithPlanet();
         }
     }
 
@@ -31,8 +30,6 @@ public class SphereScript : MonoBehaviour
             Debug.Log("exited planet sphere");
             astronaut.GetComponent<AstronautMove>().currentPlanet = "";
             astronaut.GetComponent<AstronautMove>().astronautStartingPosition = UnityEngine.Vector3.zero;
-            //astronaut.GetComponent<Rigidbody2D>().gravityScale = 0.06f;
-            //astronaut.GetComponent<Rigidbody2D>().mass = 0.1f;
             astronaut.GetComponent<AstronautMove>().setParent(null, UnityEngine.Vector2.zero);
         }
     }

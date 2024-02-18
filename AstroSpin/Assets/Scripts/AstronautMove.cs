@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
+using System.Reflection;
 using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,9 +11,10 @@ using static UnityEngine.GraphicsBuffer;
 
 public class AstronautMove : MonoBehaviour
 {
-    public string currentPlanet;   //rotate1 certainly
+    public string currentPlanet;   //rotate1 first certainly
     public UnityEngine.Vector3 astronautStartingPosition;
     public UnityEngine.Vector3 referenceStartingPosition;
+    public UnityEngine.Vector3 collisionPoint;
     private Camera camera;
 
     void Start()
@@ -36,6 +38,7 @@ public class AstronautMove : MonoBehaviour
             reference.transform.position = astronautStartingPosition;
             reference.transform.SetParent(parent.transform, false);
             referenceStartingPosition = reference.transform.position;
+            collisionPoint = collisionPosition;
         }
         else
         {
@@ -53,26 +56,8 @@ public class AstronautMove : MonoBehaviour
         }
         if(currentPlanet != "")
         {
-            Debug.Log("astronaut is in planet atmosphere");
-            /*GameObject planet = GameObject.Find(currentPlanet);
-            PlanetMoveScript script = planet.GetComponent<PlanetMoveScript>();
-            float rotationSpeed = script.getRotateSpeed();
-            Vector3 planetRotationDirection = script.getForward();*/
-
-            /*GameObject planet = GameObject.Find(currentPlanet);
-            GameObject reference = null;
-            try
-            {
-                reference = planet.transform.GetChild(3).gameObject;
-            }
-            catch (Exception e)
-            {
-                reference = planet.transform.GetChild(2).gameObject;
-            }
-            Debug.Log("reference: " + reference.name);
-            transform.position = astronautStartingPosition + (referenceStartingPosition - reference.transform.position);
-            referenceStartingPosition = reference.transform.position;
-            astronautStartingPosition = transform.position;*/
+            //TODO: register tap or space press
+                //jump in right direction
         }
     }
 
@@ -84,5 +69,29 @@ public class AstronautMove : MonoBehaviour
         if (camera.transform.position.y - transform.position.y > 2) return true;
         if (camera.transform.position.y - transform.position.y < -2) return true;
         return false;
+    }
+
+    public void alignWithPlanet()
+    {
+        GameObject planet = GameObject.Find(currentPlanet).gameObject;
+        UnityEngine.Vector3 collidePoistion = planet.transform.position;
+        UnityEngine.Vector3 planetCenter = planet.transform.position;
+        UnityEngine.Vector3 astronautFeet = gameObject.transform.GetChild(0).gameObject.transform.position;
+        UnityEngine.Vector3 astronautHead = gameObject.transform.GetChild(1).gameObject.transform.position;
+
+        //vector with which we want to align astronaut with
+        UnityEngine.Vector3 astronautVector = (astronautHead - astronautFeet).normalized;
+        UnityEngine.Vector3 targetVector = (astronautFeet - planetCenter).normalized;
+
+        // Calculate the angle between the forward vector of the object and the target vector
+        float angle = (float) (Math.Atan2(astronautVector.y - targetVector.y, astronautVector.x - targetVector.x) * (180 / Math.PI));
+
+        Debug.Log("astronaut vector: " + astronautVector);
+        Debug.Log("target vector: " + targetVector);
+        Debug.Log("angle: " + angle);
+
+
+        // Apply the rotation to the object
+        transform.Rotate(new UnityEngine.Vector3(0, 0, angle));
     }
 }
