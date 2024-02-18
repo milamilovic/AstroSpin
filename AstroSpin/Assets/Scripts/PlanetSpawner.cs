@@ -11,9 +11,12 @@ public class PlanetSpawner : MonoBehaviour
     private float spawnRate = 10;
     private float timer = 0;
     private int num = 1;
-    
+    private float startTime;
+    private float moveSpeed = 0.2f;
+
     void Start()
     {
+        startTime = Time.time;
         Vector3 pos = transform.position - new Vector3(3.5f, 1, 0);
         spawnPlanet(pos, 2);
         pos = transform.position - new Vector3(1, -0.5f, 0);
@@ -22,6 +25,11 @@ public class PlanetSpawner : MonoBehaviour
 
     void Update()
     {
+        if (Time.time - startTime > 1)
+        {
+            //move to the right
+            transform.position = transform.position + (Vector3.right * moveSpeed) * Time.deltaTime;
+        }
         if (timer < spawnRate)
         {
             timer += Time.deltaTime;
