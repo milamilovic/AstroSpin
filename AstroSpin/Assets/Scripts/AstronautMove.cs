@@ -13,10 +13,11 @@ public class AstronautMove : MonoBehaviour
     public string currentPlanet;   //rotate1 certainly
     public UnityEngine.Vector3 astronautStartingPosition;
     public UnityEngine.Vector3 referenceStartingPosition;
+    private Camera camera;
 
     void Start()
     {
-        
+        camera = Camera.main;
     }
 
     public void setParent(GameObject parent, UnityEngine.Vector3 collisionPosition)
@@ -52,6 +53,7 @@ public class AstronautMove : MonoBehaviour
         }
         if(currentPlanet != "")
         {
+            Debug.Log("astronaut is in planet atmosphere");
             /*GameObject planet = GameObject.Find(currentPlanet);
             PlanetMoveScript script = planet.GetComponent<PlanetMoveScript>();
             float rotationSpeed = script.getRotateSpeed();
@@ -76,10 +78,11 @@ public class AstronautMove : MonoBehaviour
 
     private bool isOutOfBounds()
     {
-        if (gameObject.transform.position.x < -3f) return true;
-        if (gameObject.transform.position.x > 3f) return true;
-        if (gameObject.transform.position.y > 2f) return true;
-        if (gameObject.transform.position.y < -2f) return true;
+        //destroy if out of screen
+        if (camera.transform.position.x - transform.position.x > 3.2) return true;
+        if (camera.transform.position.x - transform.position.x < -3.2) return true;
+        if (camera.transform.position.y - transform.position.y > 2) return true;
+        if (camera.transform.position.y - transform.position.y < -2) return true;
         return false;
     }
 }
