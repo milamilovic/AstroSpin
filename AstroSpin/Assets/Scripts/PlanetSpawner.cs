@@ -19,7 +19,8 @@ public class PlanetSpawner : MonoBehaviour
         startTime = Time.time;
         Vector3 pos = transform.position - new Vector3(3.5f, 1, 0);
         spawnPlanet(pos, 2);
-        pos = transform.position - new Vector3(1, -0.5f, 0);
+        float yPos = Random.Range(-1.2f, 1.2f);
+        pos = transform.position - new Vector3(1, yPos, 0);
         spawnPlanet(pos, Random.Range(0, 4));
     }
 
